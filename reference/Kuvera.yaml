@@ -6,7 +6,7 @@ info:
     name: Nemo
     url: 'https://captnemo.in/contact/'
     email: kuvera.api@captnemo.in
-  termsOfService: 'https://github.com/captn3m0/kuvera-api'
+  termsOfService: 'https://github.com/captn3m0/kuvera-unofficial-api-specification'
   description: Unofficial read API specification for Kuvera.
 servers:
   - url: 'https://api.kuvera.in'
@@ -655,5 +655,6 @@ components:
         pattern: '(([A-Z0-9-]+)\|?)'
         minLength: 4
         example: FRAG-GR|SBD028G-GR
+      description: 'Multiple Mutual Fund Codes, delimited by a pipe'
 tags:
   - name: kuvera
