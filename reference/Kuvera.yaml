@@ -1,21 +1,19 @@
 openapi: 3.0.0
 info:
   title: Kuvera
-  version: '4'
+  version: ''
   contact:
     name: Nemo
     url: 'https://captnemo.in/contact/'
     email: kuvera.api@captnemo.in
   termsOfService: 'https://github.com/captn3m0/kuvera-unofficial-api-specification'
-  description: Unofficial read API specification for Kuvera.
+  description: 'Unofficial read API specification for Kuvera. '
 servers:
   - url: 'https://api.kuvera.in'
 paths:
   /mf/api/v4/fund_schemes/list.json:
     get:
       summary: Get Mutual Funds
-      tags:
-        - kuvera
       responses:
         '200':
           description: OK
@@ -138,6 +136,8 @@ paths:
                   $ref: '#/components/schemas/Mutual-Fund-Code'
       operationId: top_bought_funds
       description: List of top bought Mutual Funds
+      tags:
+        - top_funds
   /v3/funds/tags/top_sold.json:
     get:
       summary: Top Sold Funds
@@ -152,6 +152,8 @@ paths:
                   $ref: '#/components/schemas/Mutual-Fund-Code'
       operationId: top_sold_funds
       description: List of top sold Mutual Funds
+      tags:
+        - top_funds
   /v3/funds/tags/top_watchlist.json:
     get:
       summary: Top Watched Funds
@@ -166,6 +168,8 @@ paths:
                   $ref: '#/components/schemas/Mutual-Fund-Code'
       operationId: top_watched_funds
       description: List of top watched Mutual Funds
+      tags:
+        - top_funds
   /api/v3/funds/index_nav/NIFTY50.json:
     get:
       summary: NIFTY 50 Historical Value

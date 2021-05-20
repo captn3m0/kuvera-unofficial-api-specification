@@ -2,7 +2,7 @@
 tags: [introduction]
 ---
 
-# Kuvera Unofficial API Documentation
+# README
 
 Welcome to the unofficial Kuvera API docs. Kuvera has a pretty good read-only API that has CORS enabled for all domains. As an example, you can find a demo of the complete NIFTY 50 graph generated here.
 
