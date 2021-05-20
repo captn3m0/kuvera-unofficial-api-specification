@@ -12,8 +12,10 @@ Welcome to the unofficial Kuvera API docs. Kuvera has a decent good read-only AP
 2. List of AMCs
 3. List of Mutual Fund Plans
 4. Categories of Mutual Funds, along with returns for various time ranges.
-5. Details about a specific Mutual Fund Plan
+5. Details about a specific Mutual Fund Plan(s)
 6. Top bought, sold, and watched funds on Kuvera
+7. Fixed Deposit Plans
+8. Crypto Tokens (in INR)
 
 ## Authentication
 
