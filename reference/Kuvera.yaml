@@ -7,7 +7,7 @@ info:
     url: 'https://captnemo.in/contact/'
     email: kuvera.api@captnemo.in
   termsOfService: 'https://github.com/captn3m0/kuvera-unofficial-api-specification'
-  description: 'Unofficial read API specification for Kuvera. '
+  description: Unofficial read API specification for Kuvera.  See README on left to get started.
 servers:
   - url: 'https://api.kuvera.in'
 paths:
@@ -36,7 +36,7 @@ paths:
       description: Get a list of Mutual Funds in Compressed Format
   /api/v3/funds/amc_list.json:
     get:
-      summary: Your GET endpoint
+      summary: List all AMCs
       tags: []
       responses:
         '200':
@@ -137,7 +137,7 @@ paths:
       operationId: top_bought_funds
       description: List of top bought Mutual Funds
       tags:
-        - top_funds
+        - Top Funds
   /v3/funds/tags/top_sold.json:
     get:
       summary: Top Sold Funds
@@ -153,7 +153,7 @@ paths:
       operationId: top_sold_funds
       description: List of top sold Mutual Funds
       tags:
-        - top_funds
+        - Top Funds
   /v3/funds/tags/top_watchlist.json:
     get:
       summary: Top Watched Funds
@@ -169,7 +169,7 @@ paths:
       operationId: top_watched_funds
       description: List of top watched Mutual Funds
       tags:
-        - top_funds
+        - Top Funds
   /api/v3/funds/index_nav/NIFTY50.json:
     get:
       summary: NIFTY 50 Historical Value
@@ -638,6 +638,8 @@ components:
         - r
         - v
         - kc
+      x-tags:
+        - Schemas
     Mutual-Fund-Code:
       type: string
       title: Mutual-Fund-Code
@@ -648,6 +650,8 @@ components:
       x-examples:
         Example 1: 418-GR
         example-2: KO178D-DP
+      x-tags:
+        - Schemas
   securitySchemes: {}
   parameters:
     codes:
