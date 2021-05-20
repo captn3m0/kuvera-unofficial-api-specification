@@ -29,4 +29,4 @@ I've documented this for educational purposes, because I wanted a way to get the
 
 ## Stoplight
 
-The API was documented using Stoplight Studio, and is hosted on the stoplight website.
+The API was documented using Stoplight Studio, and is hosted on the stoplight website. The API is documented using OpenAPI v3 in the `Kuvera.yaml` file. The source code can be found at https://github.com/captn3m0/kuvera-unofficial-api-specification
