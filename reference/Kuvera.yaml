@@ -36,12 +36,12 @@ paths:
       description: |
         Get a list of Mutual Funds in Compressed Format. While it looks like this is not documented, it is documented using `additionalProperties` (OpenAPI v3.0) which doesn't render correctly.
       tags:
-        - Main
+        - Mutual Funds
   /api/v3/funds/amc_list.json:
     get:
       summary: List all AMCs
       tags:
-        - Main
+        - Mutual Funds
       responses:
         '200':
           description: OK
@@ -211,7 +211,7 @@ paths:
     get:
       summary: Get Fund Category Returns
       tags:
-        - Main
+        - Mutual Funds
       responses:
         '200':
           description: OK
@@ -278,7 +278,7 @@ paths:
     get:
       summary: Mutual Fund Plan Details
       tags:
-        - Main
+        - Mutual Funds
       responses:
         '200':
           description: OK
@@ -557,6 +557,160 @@ paths:
       description: Get details about a specific Mutual Fund Plans
     parameters:
       - $ref: '#/components/parameters/codes'
+  /fixed_deposit/api/v1/plans.json:
+    get:
+      summary: Fixed Deposit Plans
+      tags:
+        - Fixed Deposit
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  data:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          minLength: 1
+                          description: Plan ID (Integer as String)
+                        type:
+                          type: string
+                          minLength: 1
+                          description: Usually just "plan"
+                        attributes:
+                          type: object
+                          description: Attributes of the FD Plan
+                          properties:
+                            name:
+                              type: string
+                              minLength: 1
+                              description: Name of the Lender
+                            risk_level:
+                              type: string
+                              minLength: 1
+                              description: Risk Level (as string)
+                              example: lowest
+                            partner_id:
+                              type: string
+                              minLength: 1
+                              description: Lender ID (slug)
+                            interest_rate:
+                              type: number
+                              description: Interst Rate offered on FD
+                            senior_citizen_interest_rate:
+                              type: number
+                              description: Interest Rate for Senior Citizens
+                            offer_code:
+                              description: Always null
+                            tenure_from:
+                              type: number
+                              description: Minimum FD Tenure in days
+                            tenure_to:
+                              type: number
+                              description: Maximum FD Tenure in days
+                            tenure_from_in_months:
+                              type: number
+                              description: Minimum FD Tenure in months
+                            tenure_to_in_months:
+                              type: number
+                              description: Maximum FD Tenure in months
+                            start_date:
+                              description: null so far
+                            end_date:
+                              description: null so far
+                            min_amount:
+                              type: string
+                              minLength: 1
+                              description: Minimum Amount to open the FD as a string in INR. Can contain decimal.
+                              pattern: '\d+[.\d{2}]?'
+                              example: '2500.0'
+                            compounding:
+                              type: string
+                              minLength: 1
+                              description: Compounding Interval. Usually annually
+                              enum:
+                                - annually
+                                - monthly
+                                - daily
+                            max_amount:
+                              type: string
+                              minLength: 1
+                              description: Maximum amount for opening the FD. Amount in INR. Can contain decimal point
+                              pattern: '\d+[.\d{2}]?'
+                            status:
+                              type: string
+                              minLength: 1
+                              description: Status of this FD Plan on Kuvera
+                              enum:
+                                - registered
+                                - active
+                            lockin_period:
+                              type: string
+                              minLength: 1
+                              description: Locking period in days
+                              pattern: \d+
+                              maxLength: 3
+                              example: '90'
+                          required:
+                            - name
+                            - risk_level
+                            - partner_id
+                            - interest_rate
+                            - senior_citizen_interest_rate
+                            - tenure_from
+                            - tenure_to
+                            - tenure_from_in_months
+                            - tenure_to_in_months
+                            - min_amount
+                            - compounding
+                            - max_amount
+                            - status
+                            - lockin_period
+                      required:
+                        - id
+                        - type
+                required:
+                  - data
+      operationId: get_fixed_deposit_plans
+      description: 'Get Fixed Deposit Plans from various lenders. The data from this is used to render https://kuvera.in/explore/fixed-deposit/c/all'
+  /crypto/api/v1/coins.json:
+    get:
+      summary: Get Crypto Rates
+      tags:
+        - Crypto
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  status:
+                    type: string
+                    minLength: 1
+                    description: Response status. Usually "success"
+                  data:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      $ref: '#/components/schemas/Crypto-Token'
+                required:
+                  - status
+                  - data
+      operationId: get_crypto
+      description: 'Used to render https://kuvera.in/explore/crypto/c/all/others'
 components:
   schemas:
     Mutual-Fund:
@@ -662,6 +816,96 @@ components:
         example-2: KO178D-DP
       x-tags:
         - Schemas
+    Crypto-Token:
+      title: Crypto-Token
+      type: object
+      properties:
+        id:
+          type: number
+          description: Crypto Token ID
+        name:
+          type: string
+          minLength: 1
+          description: Crypto Token Name
+        ticker:
+          type: string
+          minLength: 1
+          description: Crypto Token Ticker
+        slug:
+          type: string
+          minLength: 1
+          description: Crypto Token Slug
+        icon:
+          type: string
+          minLength: 1
+          description: Absolute URL for Crypto Token Icon Image
+        hash_link:
+          type: string
+          minLength: 1
+          description: Official URL for the Crypto Token
+        min_trade_amount:
+          type: number
+        inr_tradeable:
+          type: boolean
+        usdt_tradeable:
+          type: boolean
+        created_at:
+          type: string
+          minLength: 1
+          format: date-time
+        updated_at:
+          type: string
+          minLength: 1
+          format: date-time
+        is_active:
+          type: boolean
+        highest_buy_bid:
+          type: number
+        lowest_sell_bid:
+          type: number
+        last_traded_price:
+          type: number
+        yes_price:
+          type: number
+        volume:
+          type: object
+          properties:
+            max:
+              type: string
+              minLength: 1
+            min:
+              type: string
+              minLength: 1
+            volume:
+              type: number
+          required:
+            - max
+            - min
+            - volume
+        last_updated:
+          type: string
+          minLength: 1
+        returns_1y:
+          type: number
+      required:
+        - id
+        - name
+        - ticker
+        - slug
+        - icon
+        - hash_link
+        - min_trade_amount
+        - inr_tradeable
+        - usdt_tradeable
+        - created_at
+        - updated_at
+        - is_active
+        - highest_buy_bid
+        - lowest_sell_bid
+        - last_traded_price
+        - yes_price
+        - last_updated
+        - returns_1y
   securitySchemes: {}
   parameters:
     codes:
