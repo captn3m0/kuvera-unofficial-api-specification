@@ -160,7 +160,7 @@ paths:
       tags:
         - Top Funds
     parameters: []
-  /v3/funds/tags/top_watchlist.json:
+  /api/v3/funds/tags/top_watchlist.json:
     get:
       summary: Top Watched Funds
       responses:
@@ -176,6 +176,7 @@ paths:
       description: List of top watched Mutual Funds
       tags:
         - Top Funds
+    parameters: []
   /api/v3/funds/index_nav/NIFTY50.json:
     get:
       summary: NIFTY 50 Historical Value

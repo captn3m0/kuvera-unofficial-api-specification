@@ -2,9 +2,9 @@
 tags: [introduction]
 ---
 
-# README
+# Kuvera Unofficial API Specification
 
-Welcome to the unofficial Kuvera API docs. Kuvera has a pretty good read-only API that has CORS enabled for all domains. As an example, you can find a demo of the complete NIFTY 50 graph generated here.
+Welcome to the unofficial Kuvera API docs. Kuvera has a decent good read-only API that this project documents.
 
 ## Data Available:
 
@@ -25,4 +25,8 @@ CORS is enabled for all requests across all domains, so you don't need to proxy 
 
 ## Disclaimer
 
-I've documented this for educational purposes, because I wanted a way to get the latest NAV of my Mutual Funds in a script. If you use this for any purpose, it is at your own liability. If Kuvera makes any changes, this may break - I don't give any guarantees.
+I've documented this for educational purposes, because I wanted a way to get the latest NAV of my Mutual Funds in a script. If you use this for any purpose, it is at your own liability. If Kuvera makes any changes, this may break - I don't give any guarantees. This is a read only API, so you can't use this to manage your funds.
+
+## Stoplight
+
+The API was documented using Stoplight Studio, and is hosted on the stoplight website.
