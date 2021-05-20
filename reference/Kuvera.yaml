@@ -33,9 +33,8 @@ paths:
                       items:
                         $ref: '#/components/schemas/Mutual-Fund'
       operationId: fund_scheme_list
-      description: |+
+      description: |
         Get a list of Mutual Funds in Compressed Format. While it looks like this is not documented, it is documented using `additionalProperties` (OpenAPI v3.0) which doesn't render correctly.
-
       tags:
         - Main
   /api/v3/funds/amc_list.json:
@@ -127,7 +126,7 @@ paths:
                     - description
       operationId: amc_list
       description: Get a list of AMCs
-  /v3/funds/tags/top_bought.json:
+  /api/v3/funds/tags/top_bought.json:
     get:
       summary: Top Bought Funds
       responses:
@@ -143,7 +142,8 @@ paths:
       description: List of top bought Mutual Funds
       tags:
         - Top Funds
-  /v3/funds/tags/top_sold.json:
+    parameters: []
+  /api/v3/funds/tags/top_sold.json:
     get:
       summary: Top Sold Funds
       responses:
@@ -159,6 +159,7 @@ paths:
       description: List of top sold Mutual Funds
       tags:
         - Top Funds
+    parameters: []
   /v3/funds/tags/top_watchlist.json:
     get:
       summary: Top Watched Funds
