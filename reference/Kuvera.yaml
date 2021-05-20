@@ -1,0 +1,659 @@
+openapi: 3.0.0
+info:
+  title: Kuvera
+  version: '4'
+  contact:
+    name: Nemo
+    url: 'https://captnemo.in/contact/'
+    email: kuvera.api@captnemo.in
+  termsOfService: 'https://github.com/captn3m0/kuvera-api'
+  description: Unofficial read API specification for Kuvera.
+servers:
+  - url: 'https://api.kuvera.in'
+paths:
+  /mf/api/v4/fund_schemes/list.json:
+    get:
+      summary: Get Mutual Funds
+      tags:
+        - kuvera
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                description: List of Mutual Fund Plans. Each key is a category
+                additionalProperties:
+                  type: object
+                  description: List of sub-categories. Each key is sub-category
+                  additionalProperties:
+                    type: object
+                    description: List of AMCs in this sub-category. Each key is a Mutual Fund House
+                    additionalProperties:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Mutual-Fund'
+      operationId: fund_scheme_list
+      description: Get a list of Mutual Funds in Compressed Format
+  /api/v3/funds/amc_list.json:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                description: List of AMCs
+                minItems: 1
+                uniqueItems: true
+                items:
+                  type: object
+                  description: AMC
+                  properties:
+                    AMC_code:
+                      type: string
+                      minLength: 1
+                      description: AMC Code
+                    available_for_purchase:
+                      type: number
+                      default: 2
+                      enum:
+                        - 0
+                        - 1
+                        - 2
+                      example: 2
+                      description: 'Whether the AMC has schemes available for purchase. 0=No, 1=Temporarily restricted, 2=Yes'
+                      readOnly: true
+                    amc_name:
+                      type: string
+                      minLength: 1
+                      description: AMC Name
+                    image:
+                      type: string
+                      minLength: 1
+                      description: AMC Logo Image filename
+                    short_code:
+                      type: string
+                      minLength: 1
+                      description: AMC short code
+                    rta_info:
+                      type: string
+                      minLength: 1
+                      description: Registrar and Transfer Agent
+                      example: Karvy
+                    address:
+                      type: string
+                      minLength: 1
+                      description: AMC Address
+                    phone_number:
+                      type: string
+                      minLength: 1
+                      description: AMC Phone number
+                    website:
+                      type: string
+                      minLength: 1
+                      description: AMC Website
+                    login_url:
+                      type: string
+                      minLength: 1
+                      description: Login URL for the AMC
+                    contact_email:
+                      type: string
+                      minLength: 1
+                      description: AMC email address
+                    description:
+                      type: string
+                      minLength: 1
+                      description: AMC Description
+                  required:
+                    - AMC_code
+                    - available_for_purchase
+                    - amc_name
+                    - image
+                    - short_code
+                    - rta_info
+                    - address
+                    - phone_number
+                    - website
+                    - login_url
+                    - contact_email
+                    - description
+      operationId: amc_list
+      description: Get a list of AMCs
+  /v3/funds/tags/top_bought.json:
+    get:
+      summary: Top Bought Funds
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mutual-Fund-Code'
+      operationId: top_bought_funds
+      description: List of top bought Mutual Funds
+  /v3/funds/tags/top_sold.json:
+    get:
+      summary: Top Sold Funds
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mutual-Fund-Code'
+      operationId: top_sold_funds
+      description: List of top sold Mutual Funds
+  /v3/funds/tags/top_watchlist.json:
+    get:
+      summary: Top Watched Funds
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mutual-Fund-Code'
+      operationId: top_watched_funds
+      description: List of top watched Mutual Funds
+  /api/v3/funds/index_nav/NIFTY50.json:
+    get:
+      summary: NIFTY 50 Historical Value
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: array
+                  minItems: 2
+                  maxItems: 2
+                  items:
+                    allOf:
+                      - properties: {}
+                        description: Unix Epoch Timestamp
+                        multipleOf: 86400
+                      - properties: {}
+                        description: NIFTY Value
+                        minimum: 2500
+                        maximum: 88888
+                        multipleOf: 0.1
+                    description: each array has 2 items
+                    type: number
+      operationId: nifty_50_value
+      description: 'Returns historical value for NIFTY50, one value per day'
+  /mf/api/v4/fund_categories.json:
+    get:
+      summary: Get Fund Category Returns
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                description: ''
+                minItems: 1
+                uniqueItems: true
+                items:
+                  type: object
+                  properties:
+                    category_name:
+                      type: string
+                      minLength: 1
+                      description: Category Name
+                    report_date:
+                      type: string
+                      minLength: 1
+                      description: Date last updated
+                    week_1:
+                      type: number
+                      description: Returns in last 1 week
+                    month_1:
+                      type: number
+                      description: Returns in last 1 month
+                    month_3:
+                      type: number
+                      description: Returns in last 3 months
+                    month_6:
+                      type: number
+                      description: Returns in last 6 months
+                    year_1:
+                      type: number
+                      description: Returns in last 1 year
+                    year_3:
+                      type: number
+                      description: Returns in last 3 years
+                    year_5:
+                      type: number
+                      description: Returns in last 5 years
+                    year_10:
+                      type: number
+                      description: 10 year returns for this category
+                    inception:
+                      type: number
+                      description: Returns since inception
+                  required:
+                    - category_name
+                    - report_date
+                    - week_1
+                    - month_1
+                    - month_3
+                    - month_6
+                    - year_1
+                    - year_3
+                    - year_5
+                    - year_10
+                    - inception
+      operationId: get-mf-api-v4-fund_categories.json
+      description: Returns list of fund categories with their returns across a range of time periods.
+  '/mf/api/v4/fund_schemes/{codes}.json':
+    get:
+      summary: Mutual Fund Plan Details
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                description: ''
+                minItems: 1
+                uniqueItems: true
+                items:
+                  type: object
+                  required:
+                    - code
+                    - name
+                    - short_name
+                    - lump_available
+                    - sip_available
+                    - lump_min
+                    - lump_min_additional
+                    - lump_max
+                    - lump_multiplier
+                    - sip_min
+                    - sip_max
+                    - sip_multiplier
+                    - sip_dates
+                    - redemption_allowed
+                    - redemption_amount_multiple
+                    - redemption_amount_minimum
+                    - redemption_quantity_multiple
+                    - redemption_quantity_minimum
+                    - category
+                    - lock_in_period
+                    - upsizecode_sip_dates
+                    - sip_maximum_gap
+                    - fund_house
+                    - fund_name
+                    - short_code
+                    - detail_info
+                    - ISIN
+                    - direct
+                    - switch_allowed
+                    - stp_flag
+                    - swp_flag
+                    - sips
+                    - instant
+                    - reinvestment
+                    - tags
+                    - slug
+                    - channel_partner_code
+                    - tax_period
+                    - nav
+                    - last_nav
+                    - jan_31_nav
+                    - volatility
+                    - returns
+                    - start_date
+                    - fund_type
+                    - fund_category
+                    - plan
+                    - expense_ratio
+                    - expense_ratio_date
+                    - fund_manager
+                    - crisil_rating
+                    - investment_objective
+                    - maturity_type
+                    - aum
+                  properties:
+                    code:
+                      type: string
+                      minLength: 1
+                    name:
+                      type: string
+                      minLength: 1
+                    short_name:
+                      type: string
+                      minLength: 1
+                    lump_available:
+                      type: string
+                      minLength: 1
+                    sip_available:
+                      type: string
+                      minLength: 1
+                    lump_min:
+                      type: number
+                    lump_min_additional:
+                      type: number
+                    lump_max:
+                      type: number
+                    lump_multiplier:
+                      type: number
+                    sip_min:
+                      type: number
+                    sip_max:
+                      type: number
+                    sip_multiplier:
+                      type: number
+                    sip_dates:
+                      type: array
+                      items:
+                        properties: {}
+                    redemption_allowed:
+                      type: string
+                      minLength: 1
+                    redemption_amount_multiple:
+                      type: number
+                    redemption_amount_minimum:
+                      type: number
+                    redemption_quantity_multiple:
+                      type: number
+                    redemption_quantity_minimum:
+                      type: number
+                    category:
+                      type: string
+                      minLength: 1
+                    lock_in_period:
+                      type: number
+                    upsizecode_sip_dates:
+                      type: array
+                      items:
+                        properties: {}
+                    sip_maximum_gap:
+                      type: number
+                    fund_house:
+                      type: string
+                      minLength: 1
+                    fund_name:
+                      type: string
+                      minLength: 1
+                    short_code:
+                      type: string
+                      minLength: 1
+                    detail_info:
+                      type: string
+                      minLength: 1
+                    ISIN:
+                      type: string
+                      minLength: 1
+                    direct:
+                      type: string
+                      minLength: 1
+                    switch_allowed:
+                      type: string
+                      minLength: 1
+                    stp_flag:
+                      type: string
+                      minLength: 1
+                    swp_flag:
+                      type: string
+                      minLength: 1
+                    sips:
+                      type: array
+                      uniqueItems: true
+                      minItems: 1
+                      items:
+                        required:
+                          - sip_frequency
+                          - sip_minimum_gap
+                          - sip_maximum_gap
+                        properties:
+                          sip_frequency:
+                            type: string
+                            minLength: 1
+                          sip_dates:
+                            type: array
+                            items:
+                              properties: {}
+                          sip_minimum_gap:
+                            type: string
+                            minLength: 1
+                          sip_maximum_gap:
+                            type: string
+                            minLength: 1
+                    instant:
+                      type: string
+                      minLength: 1
+                    reinvestment:
+                      type: string
+                      minLength: 1
+                    tags:
+                      type: array
+                      items:
+                        properties: {}
+                    slug:
+                      type: string
+                      minLength: 1
+                    channel_partner_code:
+                      type: string
+                      minLength: 1
+                    tax_period:
+                      type: number
+                    nav:
+                      type: object
+                      properties:
+                        nav:
+                          type: number
+                        date:
+                          type: string
+                          minLength: 1
+                      required:
+                        - nav
+                        - date
+                    last_nav:
+                      type: object
+                      properties:
+                        nav:
+                          type: number
+                        date:
+                          type: string
+                          minLength: 1
+                      required:
+                        - nav
+                        - date
+                    jan_31_nav:
+                      type: number
+                    volatility:
+                      type: number
+                    returns:
+                      type: object
+                      properties:
+                        week_1:
+                          type: number
+                        year_1:
+                          type: number
+                        year_3:
+                          type: number
+                        year_5:
+                          type: number
+                        inception:
+                          type: number
+                        date:
+                          type: string
+                          minLength: 1
+                      required:
+                        - week_1
+                        - year_1
+                        - year_3
+                        - year_5
+                        - inception
+                        - date
+                    start_date:
+                      type: string
+                      minLength: 1
+                    face_value: {}
+                    fund_type:
+                      type: string
+                      minLength: 1
+                    fund_category:
+                      type: string
+                      minLength: 1
+                    plan:
+                      type: string
+                      minLength: 1
+                    expense_ratio:
+                      type: string
+                      minLength: 1
+                    expense_ratio_date:
+                      type: string
+                      minLength: 1
+                    fund_manager:
+                      type: string
+                      minLength: 1
+                    crisil_rating:
+                      type: string
+                      minLength: 1
+                    investment_objective:
+                      type: string
+                      minLength: 1
+                    portfolio_turnover: {}
+                    maturity_type:
+                      type: string
+                      minLength: 1
+                    aum:
+                      type: number
+      operationId: mutual_fund_details
+      description: Get details about a specific Mutual Fund Plans
+    parameters:
+      - $ref: '#/components/parameters/codes'
+components:
+  schemas:
+    Mutual-Fund:
+      description: A compressed representation of a Mutual Fund Plan
+      type: object
+      title: Mutual Fund Mini
+      x-examples:
+        Sample Equity Plan:
+          c: PLPL56-GR
+          'n': Essel Large Cap Equity Growth Direct Plan
+          re: Z
+          r:
+            '1': 66.34
+            '3': 11.74
+            '5': 13.7
+            inception: 13
+            date: '2021-05-19'
+          v: 16.88
+          kc: Equity
+        Sample Debt Bond:
+          c: IDD298-DR
+          'n': IDFC All Seasons Bond Periodic IDCW Reinvest Direct Plan
+          re: 'Y'
+          r:
+            '1': 6.22
+            '3': 5.65
+            '5': 0
+            inception: 5.56
+            date: '2021-05-19'
+          v: 1.89
+          kc: Debt - Bonds
+      properties:
+        c:
+          $ref: '#/components/schemas/Mutual-Fund-Code'
+        'n':
+          type: string
+          minLength: 1
+          description: Scheme Name
+        re:
+          type: string
+          minLength: 0
+          description: Reinvestment
+          enum:
+            - Z
+            - 'N'
+            - 'Y'
+          maxLength: 1
+        r:
+          type: object
+          description: Returns
+          required:
+            - inception
+            - date
+          properties:
+            '1':
+              type: number
+              description: 1 Year returns
+              multipleOf: 0.01
+              exclusiveMinimum: false
+            '3':
+              type: number
+              description: 3 Year returns
+              multipleOf: 0.01
+              format: float
+            '5':
+              type: number
+              description: 5 Year returns
+              multipleOf: 0.01
+            inception:
+              type: number
+              description: Fund returns since inception
+            date:
+              type: string
+              minLength: 1
+              description: Date Last Updated
+              example: '2021-05-19'
+              format: date
+        v:
+          type: number
+          description: Volatility
+        kc:
+          type: string
+          minLength: 1
+          description: Category
+      required:
+        - c
+        - 'n'
+        - re
+        - r
+        - v
+        - kc
+    Mutual-Fund-Code:
+      type: string
+      title: Mutual-Fund-Code
+      example: LFAG-GR
+      pattern: '^[A-Z0-9-]+'
+      minLength: 4
+      description: Mutual Fund Code
+      x-examples:
+        Example 1: 418-GR
+        example-2: KO178D-DP
+  securitySchemes: {}
+  parameters:
+    codes:
+      name: codes
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: '(([A-Z0-9-]+)\|?)'
+        minLength: 4
+        example: FRAG-GR|SBD028G-GR
+tags:
+  - name: kuvera
