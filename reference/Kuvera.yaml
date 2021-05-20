@@ -33,11 +33,16 @@ paths:
                       items:
                         $ref: '#/components/schemas/Mutual-Fund'
       operationId: fund_scheme_list
-      description: Get a list of Mutual Funds in Compressed Format
+      description: |+
+        Get a list of Mutual Funds in Compressed Format. While it looks like this is not documented, it is documented using `additionalProperties` (OpenAPI v3.0) which doesn't render correctly.
+
+      tags:
+        - Main
   /api/v3/funds/amc_list.json:
     get:
       summary: List all AMCs
-      tags: []
+      tags:
+        - Main
       responses:
         '200':
           description: OK
@@ -173,7 +178,8 @@ paths:
   /api/v3/funds/index_nav/NIFTY50.json:
     get:
       summary: NIFTY 50 Historical Value
-      tags: []
+      tags:
+        - Index Data
       responses:
         '200':
           description: OK
@@ -202,7 +208,8 @@ paths:
   /mf/api/v4/fund_categories.json:
     get:
       summary: Get Fund Category Returns
-      tags: []
+      tags:
+        - Main
       responses:
         '200':
           description: OK
@@ -268,7 +275,8 @@ paths:
   '/mf/api/v4/fund_schemes/{codes}.json':
     get:
       summary: Mutual Fund Plan Details
-      tags: []
+      tags:
+        - Main
       responses:
         '200':
           description: OK
