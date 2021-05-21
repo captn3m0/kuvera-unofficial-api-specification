@@ -10,6 +10,7 @@ info:
   description: Unofficial read API specification for Kuvera.  See README on left to get started.
 servers:
   - url: 'https://api.kuvera.in'
+    description: Kuvera Production API Server
 paths:
   /mf/api/v4/fund_schemes/list.json:
     get:
@@ -857,6 +858,80 @@ paths:
                   - current_gold_price
       operationId: current_gold_price
       description: Returns current gold price at which you can buy/sell Gold on Kuvera
+  /api/v3/users/authenticate.json:
+    post:
+      summary: Login User
+      operationId: authenticate_user
+      description: Authenticates a use and gets a JWT token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                email:
+                  type: string
+                  minLength: 1
+                  format: email
+                password:
+                  type: string
+                  minLength: 1
+                  format: password
+                v:
+                  type: string
+                  minLength: 1
+                  description: Application Version
+                  example: 1.179.14
+              required:
+                - email
+                - password
+            examples:
+              Sample Input:
+                value:
+                  email: user@example.com
+                  password: pa$$word
+                  v: 1.179.14
+        description: Email and Password
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  status:
+                    type: string
+                    minLength: 1
+                    description: '"success" if login worked'
+                  token:
+                    type: string
+                    minLength: 1
+                    description: JWT Token
+                  name:
+                    type: string
+                    minLength: 1
+                    description: User's name
+                  email:
+                    type: string
+                    minLength: 1
+                    description: User's email address
+                  profile:
+                    description: Set to null
+                  new_user:
+                    type: boolean
+                    description: ''
+                required:
+                  - status
+                  - token
+                  - name
+                  - email
+                  - new_user
+      tags:
+        - Kuvera
+        - Authentication
 components:
   schemas:
     Mutual-Fund:
@@ -1084,4 +1159,4 @@ tags:
   - name: Index Data
   - name: Fixed Deposit
   - name: Crypto
-security: []
+  - name: Authentication

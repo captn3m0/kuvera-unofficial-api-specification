@@ -16,6 +16,8 @@ Welcome to the unofficial Kuvera API docs. Kuvera has a decent good read-only AP
 6. Top bought, sold, and watched funds on Kuvera
 7. Fixed Deposit Plans
 8. Crypto Tokens (in INR)
+9. Gold rates, both hisorical and latest
+10. Exchange rate for USD
 
 ## Authentication
 
