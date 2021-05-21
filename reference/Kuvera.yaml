@@ -711,6 +711,152 @@ paths:
                   - data
       operationId: get_crypto
       description: 'Used to render https://kuvera.in/explore/crypto/c/all/others'
+  /vested/api/v1/exchange_rates/live.json:
+    get:
+      summary: USD Exchange Rate
+      tags:
+        - International
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  status:
+                    type: string
+                    minLength: 1
+                    description: Usually success
+                  data:
+                    type: object
+                    required:
+                      - id
+                      - date
+                      - price
+                      - source_currency
+                      - target_currency
+                    properties:
+                      id:
+                        type: number
+                        description: Currency ID
+                      date:
+                        type: string
+                        minLength: 1
+                        description: date last updated
+                        format: date-time
+                      price:
+                        type: number
+                        description: Price in INR
+                      source_currency:
+                        type: string
+                        minLength: 1
+                        description: 3-letter currency code. Expect USD
+                      target_currency:
+                        type: string
+                        minLength: 1
+                        description: 3 letter currency code. Expect INR
+                required:
+                  - status
+                  - data
+      operationId: get_exchange_rate
+      description: Returns USD exchange rate
+  /api/v3/gold/prices.json:
+    get:
+      summary: Gold Prices
+      tags:
+        - Gold
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  gold_prices:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    description: List of gold prices over time
+                    items:
+                      type: object
+                      properties:
+                        date:
+                          type: string
+                          minLength: 1
+                          description: Date in YYYY-MM-DD format
+                          format: date
+                        price:
+                          type: number
+                          description: Price in INR
+                      required:
+                        - date
+                        - price
+                required:
+                  - gold_prices
+      operationId: get_gold_prices
+      description: 'Returns Gold Prices, as per Kuvera''s partners'
+  /api/v3/gold/current_price.json:
+    get:
+      summary: Current Gold Price
+      tags:
+        - Gold
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  taxes:
+                    type: object
+                    required:
+                      - cgst
+                      - sgst
+                      - igst
+                    description: The government will take this much
+                    properties:
+                      cgst:
+                        type: number
+                        description: Central GST
+                      sgst:
+                        type: number
+                        description: State GST
+                      igst:
+                        type: number
+                        description: IGST
+                  block_id:
+                    type: string
+                    minLength: 1
+                  fetched_at:
+                    type: string
+                    minLength: 1
+                    format: date-time
+                    description: Date time. Includes timezone
+                  current_gold_price:
+                    type: object
+                    required:
+                      - buy
+                      - sell
+                    properties:
+                      buy:
+                        type: number
+                        description: Buy price in INR
+                      sell:
+                        type: number
+                        description: Sell price in INR
+                required:
+                  - taxes
+                  - block_id
+                  - fetched_at
+                  - current_gold_price
+      operationId: current_gold_price
+      description: Returns current gold price at which you can buy/sell Gold on Kuvera
 components:
   schemas:
     Mutual-Fund:
