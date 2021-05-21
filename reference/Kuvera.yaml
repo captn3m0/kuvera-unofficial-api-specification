@@ -941,7 +941,231 @@ paths:
                   - new_user
       tags:
         - Kuvera
-        - Authentication
+  /api/v3/user/info.json:
+    get:
+      summary: Get User Info
+      tags:
+        - Kuvera
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  id:
+                    type: number
+                  current_portfolio:
+                    type: object
+                    required:
+                      - onboarding_state
+                      - id
+                      - name
+                      - mode_of_investment
+                      - smart_switch
+                      - trade_smart
+                      - tax_harvesting
+                      - applicant_signature
+                      - aof_status
+                    properties:
+                      onboarding_state:
+                        type: number
+                      id:
+                        type: number
+                      name:
+                        type: string
+                        minLength: 1
+                      mode_of_investment:
+                        type: string
+                        minLength: 1
+                      smart_switch:
+                        type: boolean
+                      trade_smart:
+                        type: boolean
+                      tax_harvesting:
+                        type: boolean
+                      applicant_signature:
+                        type: array
+                        items: {}
+                      aof_status:
+                        type: string
+                        minLength: 1
+                  email:
+                    type: string
+                    minLength: 1
+                  fname:
+                    type: string
+                    minLength: 1
+                  mname:
+                    type: string
+                    minLength: 0
+                  lname:
+                    type: string
+                    minLength: 1
+                  name:
+                    type: string
+                    minLength: 1
+                  onboarding_state:
+                    type: number
+                  provider:
+                    type: string
+                    minLength: 1
+                  referral_code:
+                    type: string
+                    minLength: 1
+                  referred:
+                    type: boolean
+                  preferences:
+                    type: object
+                    required:
+                      - coins_preferences
+                      - display_sort_preference
+                      - equity_beta
+                      - fd_beta
+                      - dont_prompt_m1
+                      - dont_prompt_mandate
+                      - dont_prompt_import_cas
+                      - dont_prompt_insurance
+                      - 2fa_on
+                      - dashboard_returns
+                      - dont_prompt_asset_allocation
+                    properties:
+                      coins_preferences:
+                        type: object
+                        required:
+                          - smart_switch
+                          - family_account
+                          - smart_switch_2
+                        properties:
+                          smart_switch:
+                            type: boolean
+                          family_account:
+                            type: boolean
+                          smart_switch_2:
+                            type: boolean
+                      display_sort_preference:
+                        type: string
+                        minLength: 1
+                      equity_beta:
+                        type: boolean
+                      fd_beta:
+                        type: boolean
+                      dont_prompt_m1:
+                        type: boolean
+                      dont_prompt_mandate:
+                        type: boolean
+                      dont_prompt_import_cas:
+                        type: boolean
+                      dont_prompt_insurance:
+                        type: boolean
+                      2fa_on:
+                        type: boolean
+                      dashboard_returns:
+                        type: string
+                        minLength: 1
+                      dont_prompt_asset_allocation:
+                        type: boolean
+                  newsletter:
+                    type: string
+                    minLength: 1
+                  mobile_phone:
+                    type: string
+                    minLength: 1
+                  state:
+                    type: number
+                  has_imported:
+                    type: boolean
+                  big_investor:
+                    type: boolean
+                  holiday:
+                    type: string
+                    minLength: 1
+                  dob:
+                    type: string
+                    minLength: 1
+                    description: Date of Birth
+                    format: date
+                  kayako:
+                    type: object
+                    properties:
+                      timestamp:
+                        type: string
+                      token:
+                        type: string
+                required:
+                  - id
+                  - current_portfolio
+                  - email
+                  - fname
+                  - mname
+                  - lname
+                  - name
+                  - onboarding_state
+                  - provider
+                  - referral_code
+                  - referred
+                  - preferences
+                  - newsletter
+                  - mobile_phone
+                  - state
+                  - has_imported
+                  - big_investor
+                  - holiday
+                  - dob
+              examples:
+                Sample Response:
+                  value:
+                    id: 123
+                    current_portfolio:
+                      onboarding_state: 13
+                      id: 123
+                      name: Personal
+                      mode_of_investment: sole
+                      smart_switch: true
+                      trade_smart: false
+                      tax_harvesting: false
+                      applicant_signature: []
+                      aof_status: approved
+                    email: user@example.com
+                    fname: Gaurav
+                    mname: ''
+                    lname: Kumar
+                    name: Gaurav Kumar
+                    onboarding_state: 13
+                    provider: local
+                    referral_code: AVC71
+                    referred: false
+                    preferences:
+                      coins_preferences:
+                        smart_switch: true
+                        family_account: true
+                        smart_switch_2: true
+                      display_sort_preference: totAmount
+                      equity_beta: false
+                      fd_beta: true
+                      dont_prompt_m1: true
+                      dont_prompt_mandate: true
+                      dont_prompt_import_cas: true
+                      dont_prompt_insurance: true
+                      2fa_on: true
+                      dashboard_returns: XIRR
+                      dont_prompt_asset_allocation: true
+                    newsletter: unsubscribed
+                    mobile_phone: '9911991199'
+                    state: 2
+                    has_imported: true
+                    big_investor: true
+                    holiday: 'N'
+                    dob: '1970-01-01'
+                    kayako:
+                      timestamp: '1621578614'
+                      token: ''
+      operationId: get_user_info
+      security:
+        - Authorization: []
+      description: Returns information about the currently logged in user. This requires the Authorization header to be set as Bearer Token. See the Login User API on how to get the token.
 components:
   schemas:
     Mutual-Fund:
@@ -1139,6 +1363,7 @@ components:
         - returns_1y
       x-tags:
         - Schemas
+      description: ''
   securitySchemes:
     Authorization:
       type: http
@@ -1171,4 +1396,3 @@ tags:
   - name: Index Data
   - name: Fixed Deposit
   - name: Crypto
-  - name: Authentication
