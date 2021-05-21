@@ -18,10 +18,11 @@ Welcome to the unofficial Kuvera API docs. Kuvera has a decent good read-only AP
 8. Crypto Tokens (in INR)
 9. Gold rates, both hisorical and latest
 10. Exchange rate for USD
+11. User Profile information
 
 ## Authentication
 
-Most APIs don't need any authentication.
+Most APIs don't need any authentication. APIs that require authentication are marked with a 🔒.
 
 ## CORS
 
