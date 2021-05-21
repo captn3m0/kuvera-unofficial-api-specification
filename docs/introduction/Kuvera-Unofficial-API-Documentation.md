@@ -21,7 +21,7 @@ Welcome to the unofficial Kuvera API docs. Kuvera has a decent good read-only AP
 
 ## Authentication
 
-None of the APIs need any authentication.
+Most APIs don't need any authentication.
 
 ## CORS
 

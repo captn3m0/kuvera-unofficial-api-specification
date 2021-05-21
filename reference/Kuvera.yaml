@@ -7,7 +7,7 @@ info:
     url: 'https://captnemo.in/contact/'
     email: kuvera.api@captnemo.in
   termsOfService: 'https://github.com/captn3m0/kuvera-unofficial-api-specification'
-  description: Unofficial read API specification for Kuvera.  See README on left to get started.
+  description: Unofficial read API specification for Kuvera.  See Introduction on left to get a summary.
 servers:
   - url: 'https://api.kuvera.in'
     description: Kuvera Production API Server
@@ -761,6 +761,16 @@ paths:
                 required:
                   - status
                   - data
+              examples:
+                example-1:
+                  value:
+                    status: string
+                    data:
+                      id: 0
+                      date: '2019-08-24T14:15:22Z'
+                      price: 0
+                      source_currency: string
+                      target_currency: string
       operationId: get_exchange_rate
       description: Returns USD exchange rate
   /api/v3/gold/prices.json:
@@ -1127,6 +1137,8 @@ components:
         - yes_price
         - last_updated
         - returns_1y
+      x-tags:
+        - Schemas
   securitySchemes:
     Authorization:
       type: http
