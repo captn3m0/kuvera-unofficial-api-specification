@@ -1052,7 +1052,11 @@ components:
         - yes_price
         - last_updated
         - returns_1y
-  securitySchemes: {}
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      description: Authorization Header contains a JWT token
   parameters:
     codes:
       name: codes
@@ -1064,5 +1068,20 @@ components:
         minLength: 4
         example: FRAG-GR|SBD028G-GR
       description: 'Multiple Mutual Fund Codes, delimited by a pipe'
+    Authorization:
+      name: Authorization
+      in: header
+      required: false
+      schema:
+        type: string
+      description: Authorization Header as JWT
 tags:
-  - name: kuvera
+  - name: Kuvera
+  - name: Mutual Funds
+  - name: Top Funds
+  - name: International
+  - name: Gold
+  - name: Index Data
+  - name: Fixed Deposit
+  - name: Crypto
+security: []
