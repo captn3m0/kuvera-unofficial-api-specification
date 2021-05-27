@@ -274,7 +274,9 @@ paths:
                     - year_10
                     - inception
       operationId: get-mf-api-v4-fund_categories.json
-      description: Returns list of fund categories with their returns across a range of time periods.
+      description: |+
+        Returns list of fund categories with their returns across a range of time periods.
+
   '/mf/api/v4/fund_schemes/{codes}.json':
     get:
       summary: Mutual Fund Plan Details
@@ -943,7 +945,7 @@ paths:
         - Kuvera
   /api/v3/user/info.json:
     get:
-      summary: Get User Info
+      summary: "Get User Info \U0001F512"
       tags:
         - Kuvera
       responses:

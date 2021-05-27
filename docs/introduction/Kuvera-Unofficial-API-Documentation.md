@@ -6,6 +6,8 @@ tags: [introduction]
 
 Welcome to the unofficial Kuvera API docs. Kuvera has a decent good read-only API that this project documents.
 
+
+
 ## Data Available:
 
 1. NIFTY50 Historical Value
