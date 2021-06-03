@@ -126,7 +126,7 @@ paths:
                     - contact_email
                     - description
       operationId: amc_list
-      description: Get a list of AMCs
+      description: Get a list of AMCs along with their shortcodes.
   /api/v3/funds/tags/top_bought.json:
     get:
       summary: Top Bought Funds
@@ -274,9 +274,8 @@ paths:
                     - year_10
                     - inception
       operationId: get-mf-api-v4-fund_categories.json
-      description: |+
+      description: |
         Returns list of fund categories with their returns across a range of time periods.
-
   '/mf/api/v4/fund_schemes/{codes}.json':
     get:
       summary: Mutual Fund Plan Details
@@ -559,7 +558,7 @@ paths:
       operationId: mutual_fund_details
       description: Get details about a specific Mutual Fund Plans
     parameters:
-      - $ref: '#/components/parameters/codes'
+      - $ref: '#/components/parameters/Mutual-Fund-Codes'
   /fixed_deposit/api/v1/plans.json:
     get:
       summary: Fixed Deposit Plans
@@ -945,7 +944,7 @@ paths:
         - Kuvera
   /api/v3/user/info.json:
     get:
-      summary: "Get User Info \U0001F512"
+      summary: '[A] Get User Info'
       tags:
         - Kuvera
       responses:
@@ -1168,6 +1167,352 @@ paths:
       security:
         - Authorization: []
       description: Returns information about the currently logged in user. This requires the Authorization header to be set as Bearer Token. See the Login User API on how to get the token.
+  /equity/api/v1/stock/prices.json:
+    get:
+      summary: Stock Prices
+      tags:
+        - Stocks
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: sdsd
+                type: object
+                x-examples:
+                  example-1:
+                    status: success
+                    data:
+                      INE330H01018:
+                        last_price: '2.81'
+                        last_volume: '71'
+                        total_volume: '6279348'
+                        open_price: '2.81'
+                        high_price: '2.81'
+                        low_price: '2.81'
+                        last_close_price: '2.68'
+                        buy_volume: '0'
+                        sell_volume: '0'
+                        last_updated_time: '06:30:01.000'
+                        last_updated_date: 03-06-2021
+                        pe_ratio: '-2.422414'
+                        fw_pe_ratio: '0.311463'
+                        market_capitalisation: '7711353880.5'
+                        return_1w: '45.5958549'
+                        return_1m: '77.8481013'
+                        return_1y: '251.25'
+                        return_ytd: '39.800995'
+                        pb_ratio: '-0.0151351'
+                        52_week_high: '4.33'
+                        52_week_low: '0.77'
+                        52_week_high_date: 29.07.2020
+                        52_week_low_date: 03.06.2020
+                        ticker: '532712'
+                        exchange: BSE
+                        net_percent_change: '4.8507'
+                        adjusted_net_change: '0.13'
+                        adjusted_net_percent_change: '4.8507'
+                        isin: INE330H01018
+                        avg_volume: '12534378.9836065583'
+                        dividend_yield: '-'
+                        eps: '-1.16'
+                        last_updated_date_time: '2021-06-03T16:00:01.000+05:30'
+                        is_live: false
+                      INE114A01011:
+                        last_price: '122.35'
+                        last_volume: '1'
+                        total_volume: '1771373'
+                        open_price: '123.45'
+                        high_price: '124.65'
+                        low_price: '122.1'
+                        last_close_price: '121.85'
+                        buy_volume: '0'
+                        sell_volume: '0'
+                        last_updated_time: '06:30:00.000'
+                        last_updated_date: 03-06-2021
+                        pe_ratio: '15.198758'
+                        fw_pe_ratio: '6.202159'
+                        market_capitalisation: '505369769109.1500244141'
+                        return_1w: '3.0315789'
+                        return_1m: '2.4277941'
+                        return_1y: '292.776886'
+                        return_ytd: '65.1147099'
+                        pb_ratio: '1.2435801'
+                        52_week_high: '151.1'
+                        52_week_low: '28.5'
+                        52_week_high_date: 10.05.2021
+                        52_week_low_date: 12.06.2020
+                        ticker: '500113'
+                        exchange: BSE
+                        net_percent_change: '0.4103'
+                        adjusted_net_change: '0.5'
+                        adjusted_net_percent_change: '0.4103'
+                        isin: INE114A01011
+                        avg_volume: '4952760.590163934'
+                        dividend_yield: '0.82'
+                        eps: '8.05'
+                        last_updated_date_time: '2021-06-03T16:00:00.000+05:30'
+                        is_live: false
+                properties:
+                  status:
+                    type: string
+                    description: Response status. "success"
+                  data:
+                    type: object
+                    additionalProperties:
+                      type: object
+                      properties:
+                        last_price:
+                          type: string
+                          pattern: '\d+\.\d{0,2}'
+                        last_volume:
+                          type: string
+                          pattern: \d+
+                          minLength: 1
+                        total_volume:
+                          type: string
+                          pattern: \d+
+                          minLength: 1
+                        open_price:
+                          type: string
+                          minLength: 3
+                          pattern: '\d+\.\d{0,2}'
+                        high_price:
+                          type: string
+                          minLength: 3
+                          pattern: '\d+\.\d{0,2}'
+                        low_price:
+                          type: string
+                          minLength: 3
+                          pattern: '\d+\.\d{0,2}'
+                        last_close_price:
+                          type: string
+                          minLength: 3
+                          pattern: '\d+\.\d{0,2}'
+                        buy_volume:
+                          type: string
+                          minLength: 1
+                          pattern: \d+
+                        sell_volume:
+                          type: string
+                          minLength: 1
+                          pattern: \d+
+                        last_updated_time:
+                          type: string
+                          minLength: 1
+                          pattern: '\d{2}:\d{2}:\d{2}\.000'
+                        last_updated_date:
+                          type: string
+                          minLength: 1
+                          format: date
+                        pe_ratio:
+                          type: string
+                          minLength: 1
+                          pattern: '\-?\d{0,3}\.\d{0,5}'
+                        fw_pe_ratio:
+                          type: string
+                          minLength: 1
+                          pattern: '\-?\d{0,3}\.\d{0,5}'
+                        market_capitalisation:
+                          type: string
+                          minLength: 1
+                          pattern: '\d{0,12}\.\d{0,2}'
+                        return_1w:
+                          type: string
+                          minLength: 1
+                          pattern: '\-?\d{0,3}\.\d{0,5}'
+                        return_1m:
+                          type: string
+                          minLength: 1
+                          pattern: '\-?\d{0,3}\.\d{0,5}'
+                        return_1y:
+                          type: string
+                          minLength: 1
+                          pattern: '\-?\d{0,3}\.\d{0,5}'
+                        return_ytd:
+                          type: string
+                          minLength: 1
+                          pattern: '\-?\d{0,3}\.\d{0,5}'
+                        pb_ratio:
+                          type: string
+                          minLength: 1
+                          pattern: '\-?\d{0,3}\.\d{0,5}'
+                        52_week_high:
+                          type: string
+                          minLength: 1
+                          pattern: '\d{0,5}\.\d{0,2}'
+                        52_week_low:
+                          type: string
+                          minLength: 1
+                          pattern: '\d{0,5}\.\d{0,2}'
+                        52_week_high_date:
+                          type: string
+                          minLength: 1
+                          pattern: '\d{0,5}\.\d{0,2}'
+                        52_week_low_date:
+                          type: string
+                          minLength: 1
+                          pattern: '\d{0,5}\.\d{0,2}'
+                        ticker:
+                          type: string
+                          minLength: 1
+                          pattern: '\d{5}'
+                        exchange:
+                          type: string
+                          minLength: 1
+                          pattern: '[N|B]SE'
+                        net_percent_change:
+                          type: string
+                          minLength: 1
+                          pattern: '\-?\d{0,3}\.\d{0,5}'
+                        adjusted_net_change:
+                          type: string
+                          minLength: 1
+                          pattern: '\-?\d{0,3}\.\d{0,5}'
+                        adjusted_net_percent_change:
+                          type: string
+                          minLength: 1
+                          pattern: '\-?\d{0,3}\.\d{0,5}'
+                        isin:
+                          type: string
+                          minLength: 1
+                          pattern: 'INE[A-Z0-9]{9}\d{1}'
+                        avg_volume:
+                          type: string
+                          minLength: 1
+                          pattern: '\d{0,8}\.\d{0,6}'
+                        dividend_yield:
+                          type: string
+                          minLength: 1
+                          pattern: '\-?\d{0,3}\.\d{0,5}'
+                        eps:
+                          type: string
+                          minLength: 1
+                          pattern: '\-?\d{0,3}.\d{0,5}'
+                        last_updated_date_time:
+                          type: string
+                          format: datetime
+                          minLength: 1
+                        is_live:
+                          type: boolean
+                      required:
+                        - last_price
+                        - last_volume
+                        - total_volume
+                        - open_price
+                        - high_price
+                        - low_price
+                        - last_close_price
+                        - buy_volume
+                        - sell_volume
+                        - last_updated_time
+                        - last_updated_date
+                        - pe_ratio
+                        - fw_pe_ratio
+                        - market_capitalisation
+                        - return_1w
+                        - return_1m
+                        - return_1y
+                        - return_ytd
+                        - pb_ratio
+                        - 52_week_high
+                        - 52_week_low
+                        - 52_week_high_date
+                        - 52_week_low_date
+                        - ticker
+                        - exchange
+                        - net_percent_change
+                        - adjusted_net_change
+                        - adjusted_net_percent_change
+                        - isin
+                        - avg_volume
+                        - dividend_yield
+                        - eps
+                        - last_updated_date_time
+                        - is_live
+                required:
+                  - status
+                  - data
+              examples:
+                example-1:
+                  value:
+                    status: success
+                    data:
+                      INE330H01018:
+                        last_price: '2.81'
+                        last_volume: '71'
+                        total_volume: '6279348'
+                        open_price: '2.81'
+                        high_price: '2.81'
+                        low_price: '2.81'
+                        last_close_price: '2.68'
+                        buy_volume: '0'
+                        sell_volume: '0'
+                        last_updated_time: '06:30:01.000'
+                        last_updated_date: 03-06-2021
+                        pe_ratio: '-2.422414'
+                        fw_pe_ratio: '0.311463'
+                        market_capitalisation: '7711353880.5'
+                        return_1w: '45.5958549'
+                        return_1m: '77.8481013'
+                        return_1y: '251.25'
+                        return_ytd: '39.800995'
+                        pb_ratio: '-0.0151351'
+                        52_week_high: '4.33'
+                        52_week_low: '0.77'
+                        52_week_high_date: 29.07.2020
+                        52_week_low_date: 03.06.2020
+                        ticker: '532712'
+                        exchange: BSE
+                        net_percent_change: '4.8507'
+                        adjusted_net_change: '0.13'
+                        adjusted_net_percent_change: '4.8507'
+                        isin: INE330H01018
+                        avg_volume: '12534378.9836065583'
+                        dividend_yield: '-'
+                        eps: '-1.16'
+                        last_updated_date_time: '2021-06-03T16:00:01.000+05:30'
+                        is_live: false
+                      INE114A01011:
+                        last_price: '122.35'
+                        last_volume: '1'
+                        total_volume: '1771373'
+                        open_price: '123.45'
+                        high_price: '124.65'
+                        low_price: '122.1'
+                        last_close_price: '121.85'
+                        buy_volume: '0'
+                        sell_volume: '0'
+                        last_updated_time: '06:30:00.000'
+                        last_updated_date: 03-06-2021
+                        pe_ratio: '15.198758'
+                        fw_pe_ratio: '6.202159'
+                        market_capitalisation: '505369769109.1500244141'
+                        return_1w: '3.0315789'
+                        return_1m: '2.4277941'
+                        return_1y: '292.776886'
+                        return_ytd: '65.1147099'
+                        pb_ratio: '1.2435801'
+                        52_week_high: '151.1'
+                        52_week_low: '28.5'
+                        52_week_high_date: 10.05.2021
+                        52_week_low_date: 12.06.2020
+                        ticker: '500113'
+                        exchange: BSE
+                        net_percent_change: '0.4103'
+                        adjusted_net_change: '0.5'
+                        adjusted_net_percent_change: '0.4103'
+                        isin: INE114A01011
+                        avg_volume: '4952760.590163934'
+                        dividend_yield: '0.82'
+                        eps: '8.05'
+                        last_updated_date_time: '2021-06-03T16:00:00.000+05:30'
+                        is_live: false
+      operationId: get-stock-prices
+      description: 'Returns Stock prices for stocks in NSE/BSE. Equity ISIN Codes in India will typically start from `INE`. You can look them up on [NSDL Website](https://nsdl.co.in/master_search.php).'
+      parameters:
+        - $ref: '#/components/parameters/ISIN-Codes'
 components:
   schemas:
     Mutual-Fund:
@@ -1372,7 +1717,7 @@ components:
       scheme: bearer
       description: Authorization Header contains a JWT token
   parameters:
-    codes:
+    Mutual-Fund-Codes:
       name: codes
       in: path
       required: true
@@ -1382,13 +1727,17 @@ components:
         minLength: 4
         example: FRAG-GR|SBD028G-GR
       description: 'Multiple Mutual Fund Codes, delimited by a pipe'
-    Authorization:
-      name: Authorization
-      in: header
-      required: false
+    ISIN-Codes:
+      name: stocks
+      in: query
+      required: true
       schema:
         type: string
-      description: Authorization Header as JWT
+        pattern: '(IN([A-Z0-9-]+)\,?)'
+        minLength: 12
+        example: INE330H01018
+      description: 'Multiple ISIN Codes, delimited by a comma'
+  responses: {}
 tags:
   - name: Kuvera
   - name: Mutual Funds
@@ -1398,3 +1747,4 @@ tags:
   - name: Index Data
   - name: Fixed Deposit
   - name: Crypto
+  - name: Stocks
