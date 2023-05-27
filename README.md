@@ -1,6 +1,6 @@
 # Kuvera Unofficial API Specification
 
-Please see https://captnemo.stoplight.io/docs/kuvera/
+Please see https://captnemo.in/kuvera-unofficial-api-specification/
 
 ## Terms of Service
 
